@@ -1,11 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>dotnet_csproj</RootNamespace>
-	<PackAsTool>true</PackAsTool>
-	<ToolCommandName>botsay</ToolCommandName>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>csproj</ToolCommandName>
+    <Authors>Ruben Labruyere</Authors>
+    <Company>Ruben Labruyere</Company>
+    <Version>0.1.0</Version>
+    <Description>This tool allows the user to easily set and get xml element values in the csproj file of a dotnet core application</Description>
+    <Copyright>Copyright 2020 Ruben Labruyere</Copyright>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/TheBoneJarmer/dotnet-csproj</RepositoryUrl>
+    <PackageTags>dotnet,core,csproj,tool</PackageTags>
+    <AssemblyVersion>0.0.1.0</AssemblyVersion>
+    <FileVersion>0.0.1.0</FileVersion>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
-
+  <ItemGroup>
+    <None Include="../LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 </Project>
