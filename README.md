@@ -3,7 +3,7 @@ This tool allows you to set and get values from elements within an csproj file.
 
 ## Installation
 ```
-dotnet tool install csproj
+dotnet tool install dotnet-csproj
 ```
 
 ## Usage
