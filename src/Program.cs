@@ -210,6 +210,10 @@ namespace dotnet_csproj
             Console.WriteLine("ABOUT");
             Console.WriteLine("This tool allows you to easily set and get csproj xml values.");
             Console.WriteLine();
+            Console.WriteLine("PLACEHOLDERS");
+            Console.WriteLine("The following placeholders can be used when setting a value:");
+            Console.WriteLine("#&VALUE  -> The current value of the element.");
+            Console.WriteLine();
             Console.WriteLine("KEYS");
             Console.WriteLine("To make life a little easier the following keys are available to set and get:");
             Console.WriteLine();
