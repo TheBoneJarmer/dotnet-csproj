@@ -130,37 +130,51 @@ namespace dotnet_csproj
 
         private static void Run()
         {
+            string currentValue = "";
+            string newValue = value;
+
+            // Start reading the csproj file as xml
             XmlDocument xml = new XmlDocument();
             xml.Load(path);
 
             XmlNodeList nodeListPropertyGroup = xml.GetElementsByTagName("PropertyGroup");
             XmlNode[] nodesPropertyGroup = nodeListPropertyGroup.Cast<XmlNode>().ToArray();
 
+            // Stop the program if the csproj file does not have any <PropertyGroup> elements
+            // Although, this check is mere for a "just in case". Normally the csproj file has at least one such element
             if (nodesPropertyGroup.Length == 0)
             {
-                Console.Error.WriteLine("No propertygroups where found in the provided csproj file");
+                Console.Error.WriteLine("No propertygroups could be found in the provided csproj file");
                 Environment.Exit(1);
             }
 
+            // Try to locate an existing element with the given key
+            foreach (XmlNode nodePropertyGroup in nodesPropertyGroup)
+            {
+                XmlNode[] childNodes = nodePropertyGroup.ChildNodes.Cast<XmlNode>().ToArray();
+                XmlNode node = childNodes.FirstOrDefault(x => x.Name == key);
+
+                if (node != null)
+                {
+                    currentValue = node.InnerText;
+                }
+            }
+
+            // Now depending on the command, perform some actions
             if (command == "get")
             {
-                foreach (XmlNode nodePropertyGroup in nodesPropertyGroup)
-                {
-                    XmlNode[] childNodes = nodePropertyGroup.ChildNodes.Cast<XmlNode>().ToArray();
-                    XmlNode node = childNodes.FirstOrDefault(x => x.Name == key);
-
-                    if (node != null)
-                    {
-                        Console.Write(node.InnerText);
-                        Environment.Exit(0);
-                    }
-                }
+                Console.Write(currentValue);
+                Environment.Exit(0);
             }
 
             if (command == "set")
             {
                 int occurences = 0;
 
+                // If the value contains placeholders, parse them
+                newValue = newValue.Replace("#&VALUE", currentValue);
+
+                // Look for an existing node and set its value if one found.
                 foreach (XmlNode nodePropertyGroup in nodesPropertyGroup)
                 {
                     XmlNode[] childNodes = nodePropertyGroup.ChildNodes.Cast<XmlNode>().ToArray();
@@ -168,20 +182,22 @@ namespace dotnet_csproj
 
                     if (node != null)
                     {
-                        node.InnerText = value;
+                        node.InnerText = newValue;
                         occurences++;
                     }
                 }
 
+                // If no node could be found, add a new one
                 if (occurences == 0)
                 {
                     XmlNode node = xml.CreateElement(key);
-                    node.InnerText = value;
+                    node.InnerText = newValue;
 
                     XmlNode firstNodePropertyGroup = nodesPropertyGroup.First();
                     firstNodePropertyGroup.AppendChild(node);
                 }
 
+                // Only save the xml if a value was set
                 xml.Save(path);
             }
         }

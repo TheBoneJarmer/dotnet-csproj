@@ -22,6 +22,12 @@ Setting values is similar as getting them. If the element does not exist it will
 dotnet csproj --set Author="Ruben Labruyere"
 ```
 
+It is also possible to use placeholders. All placeholders start with **#&**, followed by an indicator name in capital like __VALUE__.
+
+```
+dotnet csproj --set Version="#$VALUE+build177"
+```
+
 ## Constribution
 Feel free to open up an issue or pull request if you got a request.
 
