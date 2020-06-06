@@ -7,7 +7,7 @@
     <ToolCommandName>csproj</ToolCommandName>
     <Authors>Ruben Labruyere</Authors>
     <Company>Ruben Labruyere</Company>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <Description>This tool allows the user to easily set and get xml element values in the csproj file of a dotnet core application</Description>
     <Copyright>Copyright 2020 Ruben Labruyere</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
